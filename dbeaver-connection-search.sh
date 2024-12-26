@@ -69,6 +69,8 @@ if [ ! -f "${CACHE_HOME}/draw_table.sh" ]; then
   fi
 fi
 
+# /General/.dbeaver
+WORKSPACE="${WORKSPACE%/}/General/.dbeaver";
 if [ ! -f "${WORKSPACE}/data-sources.json" ] || [ ! -f "${WORKSPACE}/credentials-config.json" ]; then
   echo "Not DBeaver workspace !"
   exit 1
