@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # version
-VERSION="1.0.0";
+VERSION="1.0.1";
 
 # 定义 usage 信息
 usage() {
@@ -62,7 +62,7 @@ DRAW_TABLE_URL="https://github.com/witt-bit/draw-shell-table/releases/download/1
 if [ ! -f "${CACHE_HOME}/draw_table.sh" ]; then
   mkdir -p "${CACHE_HOME}";
   echo "Downloading draw_table.sh ."
-  curl -L -o "${CACHE_HOME}/draw_table.sh" "$DRAW_TABLE_URL" || wget "$DRAW_TABLE_URL" -O "${CACHE_HOME}/draw_table.sh"
+  curl -s -L -o "${CACHE_HOME}/draw_table.sh" "$DRAW_TABLE_URL" || wget "$DRAW_TABLE_URL" -O "${CACHE_HOME}/draw_table.sh"
   if [ $? -ne 0 ]; then
     echo "Failed to download draw_table.sh"
     exit 1
@@ -96,7 +96,7 @@ generate-meta() {
   echo -e "DBeaver Connections Search" > "${CACHE_HOME}/datasource-meta.dat"
   echo -e "Connection Name\tUsername\tPassword" >> "${CACHE_HOME}/datasource-meta.dat"
   # Loop through each key-value pair in the connections object
-  jq -c '.connections | to_entries[]' data-sources.json | while read -r connection_entry; do
+  jq -c '.connections | to_entries[]' "${WORKSPACE}/data-sources.json" | while read -r connection_entry; do
     local connection_id=$(echo "${connection_entry}" | jq -r '.key')
     local connection=$(echo "${connection_entry}" | jq -r '.value')
     local connection_name=$(echo "$connection" | jq -r '.name')
