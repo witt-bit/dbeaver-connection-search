@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # version
-VERSION="1.0.1";
+VERSION="1.0.2";
 
 # 定义 usage 信息
 usage() {
